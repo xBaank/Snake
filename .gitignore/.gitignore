@@ -12,7 +12,8 @@ typedef struct {
         int j[100];
         int y[100];
         int c,c2;
-}campoc;
+        int c3[100];
+} campoc;
 campoc c;
 void teclas ();
 void campo ();
@@ -33,9 +34,11 @@ int main() {
 	c.y[1] = 19; 
 	c.j[2] = 10;
 	c.y[2] = 18; 
-	for (c.c2 = 99; c.c2 > 2; c.c2-- ) {
-	c.j[c.c2] = 5;
-	c.y[c.c2] = 5;
+	c.c3[1] = 1;
+	c.c3[2] = 1;
+	
+	for (c.c2 = 3; c.c2 < 100 ; c.c2++) {
+		c.c3[c.c2] = 0;
 	}
 	
 	campo () ;
@@ -93,6 +96,7 @@ void teclas () {
     		campo();
     	}
     	
+    	
     }
     if (tecla != 27) {
     for (n = 0; n < 2; n ++) {
@@ -121,7 +125,7 @@ void teclas () {
 	 break;
  	case derecha:  
 	 derechaz();
-	  c.w = 0;
+	 c.w = 0;
 	 c.s = 0;
 	 c.aa = 0;
 	 c.d = 1;
@@ -137,46 +141,59 @@ void serpiente () {
 	 c.m[c.j[1]][c.y[1]] = 'o';
 	 c.m[c.j[2]][c.y[2]] = 'o';
 	 c.p = 0;
-	 c.c = 99;
-	 if ((c.j[0] == c.a) && (c.y[0] == c.b)) {
+	 if (c.j[0] == c.a && c.y[0] == c.b) {
 	 	c.m[c.j[c.n]][c.y[c.n]] = 'o';
-	 	c.n = c.n + 1;
+	 	c.c3[c.n] = 1;
 	 	c.p = 1;
+	 	c.n = c.n + 1;
+	 	
+	 }
+	 for (c.c2 = 3; c.c2 < 100 ; c.c2++) {
+	 	if (c.c3[c.c2] == 1) {
+	 		c.m[c.j[c.c2]][c.y[c.c2]] = 'o';
+	 	}
+	 }
+	 for (c.c2 = 1; c.c2 <100 ; c.c2++) {
+	 if (c.m[c.j[0]][c.y[0]] == c.m[c.j[c.c2]][c.y[c.c2]] && (c.c3[c.c2] == 1) ) {
+	 	printf("Perdiste\n");
+	 	system("pause");
+	 	main();
+	 }
 }
-	 
+	 if (c.j[0] == 0 || c.j[0] == 19 || c.y[0] == 0 || c.y[0] == 39 ) {
+	    printf("Perdiste\n");
+	 	system("pause");
+	 	main();
+	 }
 }
 void arribaz () {
- while (c.c > 0 ) {
+ for (c.c = 99; c.c > 0; c.c-- ) {
  		c.j[c.c] = c.j[c.c - 1];
  		c.y[c.c] = c.y[c.c - 1];
- 		c.c = c.c - 1;
  		
  }
   c.j[0] = c.j[0] - 1;
 }
 void abajoz () {
- while (c.c > 0 ) {
+ for (c.c = 99; c.c > 0; c.c-- ) {
  		c.j[c.c] = c.j[c.c - 1];
  		c.y[c.c] = c.y[c.c - 1];
- 		c.c = c.c - 1;
  		
  }
   c.j[0] = c.j[0] + 1;
 }
 void derechaz () {
- while (c.c > 0 ) {
+ for (c.c = 99; c.c > 0; c.c-- ) {
  		c.j[c.c] = c.j[c.c - 1];
  		c.y[c.c] = c.y[c.c - 1];
- 		c.c = c.c - 1;
  		
  }
   c.y[0] = c.y[0] + 1;
 }
 void izquierdaz () {
- while (c.c > 0 ) {
+ for (c.c = 99; c.c > 0; c.c-- ) {
  		c.j[c.c] = c.j[c.c - 1];
  		c.y[c.c] = c.y[c.c - 1];
- 		c.c = c.c - 1;
  		
  }
   c.y[0] = c.y[0] - 1;
@@ -186,7 +203,7 @@ void manzana () {
 	do {
 	srand(time(NULL));
 	c.a = rand()%18+1;
-	c.b= rand()%38+1;
+	c.b = rand()%38+1;
    }
    while (c.m[c.a][c.b] == 'x' || c.m[c.a][c.b] == 'o');
 }
