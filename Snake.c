@@ -103,6 +103,10 @@ void teclas () {
  	tecla = getch();
  	switch (tecla) {
  	case arriba: 
+ 	if (c.s == 1) {
+ 		abajoz();
+ 		break;
+ 	}
 	 arribaz ();
 	 c.w = 1;
 	 c.s = 0;
@@ -110,20 +114,32 @@ void teclas () {
 	 c.d = 0;
 	 break;
  	case abajo: 
+ 	if (c.w == 1) {
+ 		arribaz();
+ 		break;
+ 	}
 	 abajoz();
-	  c.w = 0;
+	   c.w = 0;
 	 c.s = 1;
 	 c.aa = 0;
 	 c.d = 0;
 	 break;
  	case izquierda: 
+ 	if (c.d == 1) {
+ 		derechaz();
+ 		break;
+ 	}
 	 izquierdaz();
 	 c.w = 0;
 	 c.s = 0;
 	 c.aa = 1;
 	 c.d = 0;
 	 break;
- 	case derecha:  
+ 	case derecha:
+ 	if (c.aa == 1) {
+ 	    izquierdaz();
+ 	    break;
+ 	}
 	 derechaz();
 	 c.w = 0;
 	 c.s = 0;
